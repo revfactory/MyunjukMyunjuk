@@ -18,7 +18,7 @@ import static jpa.myunjuk.module.model.dto.UserDtos.*;
 public class ProfileService {
 
     private final UserRepository userRepository;
-    private final S3Service s3Service;
+    private final UploadService s3Service;
 
     /**
      * profile

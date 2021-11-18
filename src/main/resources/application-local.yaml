@@ -1,0 +1,9 @@
+secret:
+  key: local-secret@!
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-east-1

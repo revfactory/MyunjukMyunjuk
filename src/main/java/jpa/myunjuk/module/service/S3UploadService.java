@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,10 +18,11 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.UUID;
 
+@Profile("!local")
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class S3Service {
+public class S3UploadService implements UploadService {
 
     private AmazonS3 s3Client;
 
@@ -46,6 +48,7 @@ public class S3Service {
                 .build();
     }
 
+    @Override
     public String upload(MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename() + UUID.randomUUID().toString(); //파일 이름 겹치지 않도록 uuid 사용
 

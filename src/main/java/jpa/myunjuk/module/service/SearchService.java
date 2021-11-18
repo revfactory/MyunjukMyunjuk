@@ -27,14 +27,15 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class SearchService {
 
-    @Value("${naver.id}")
+    @Value("${naver.id:hello}")
     private String id;
 
-    @Value("${naver.secret}")
+    @Value("${naver.secret:hello}")
     private String secret;
 
-    @Value("${aladin.url}")
+    @Value("${aladin.url:https://www.daum.net}")
     private String pageUrl;
+
     private final String SEARCH_URL = "https://openapi.naver.com/v1/search/book.json?display=20";
     private final String DETAIL_URL = "https://openapi.naver.com/v1/search/book_adv.json";
 

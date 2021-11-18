@@ -30,7 +30,7 @@ public class BookshelfService {
     private final CharactersService charactersService;
     private final CommonService commonService;
     private final CharactersMapper charactersMapper;
-    private final S3Service s3Service;
+    private final UploadService s3Service;
 
     /**
      * bookShelf

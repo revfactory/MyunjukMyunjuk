@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/sign-up
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email": "new@new.com",
+  "password": "newpw",
+  "nickname": "hello"
+}

@@ -1,0 +1,8 @@
+###
+POST http://localhost:8080/sign-in
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email": "user@myunjuk.kr",
+  "password": "userpw"
+}

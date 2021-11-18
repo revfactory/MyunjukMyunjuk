@@ -11,6 +11,7 @@ import jpa.myunjuk.module.repository.CharactersRepository;
 import jpa.myunjuk.module.repository.UserCharacterRepository;
 import jpa.myunjuk.module.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.UUID;
 import static jpa.myunjuk.module.model.dto.JwtDtos.*;
 import static jpa.myunjuk.module.model.dto.UserDtos.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -68,9 +70,9 @@ public class UserService {
      */
     public JwtDto signIn(UserSignInReqDto userSignInReqDto) {
         User user = userRepository.findByEmail(userSignInReqDto.getEmail())
-                .orElseThrow(() -> new NoSuchDataException("email = " + userSignInReqDto.getEmail()));
+                .orElseThrow(() -> new NoSuchDataException("email = " + userSignInReqDto.getEmail())); // TODO 로그인 실패 처리 401
         if (!passwordEncoder.matches(userSignInReqDto.getPassword(), user.getPassword()))
-            throw new NoSuchDataException("password = " + userSignInReqDto.getPassword());
+            throw new NoSuchDataException("password = " + userSignInReqDto.getPassword());  // TODO PW 반환 삭제
         String[] jwtTokens = createJwtTokens(user, user.getRoles());
         return buildJwtDto(user, jwtTokens);
     }
@@ -110,6 +112,7 @@ public class UserService {
     }
 
     private User buildUserFromUserJoinDto(UserSignUpReqDto userSignUpReqDto) {
+        log.info(passwordEncoder.encode(userSignUpReqDto.getPassword()));
         return User.builder()
                 .email(userSignUpReqDto.getEmail())
                 .password(passwordEncoder.encode(userSignUpReqDto.getPassword()))
